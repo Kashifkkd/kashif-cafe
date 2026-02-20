@@ -17,8 +17,11 @@ export function Hero() {
     const v = videoRef.current;
     if (!v) return;
     const onCanPlay = () => setLoaded(true);
-    v.addEventListener("canplaythrough", onCanPlay);
-    return () => v.removeEventListener("canplaythrough", onCanPlay);
+    v.addEventListener("canplay", onCanPlay);
+    if (v.readyState >= 2) {
+      queueMicrotask(() => setLoaded(true));
+    }
+    return () => v.removeEventListener("canplay", onCanPlay);
   }, []);
 
   return (
@@ -46,7 +49,7 @@ export function Hero() {
             loop
             playsInline
             className="h-full w-full object-cover"
-            preload="metadata"
+            preload="auto"
           >
             <source src="/cafe.mp4" type="video/mp4" />
           </video>

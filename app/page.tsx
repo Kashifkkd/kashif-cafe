@@ -9,6 +9,8 @@ import { Hero } from "@/components/sections/Hero";
 import { FeaturedMenu } from "@/components/sections/FeaturedMenu";
 import { SignatureExperience } from "@/components/sections/SignatureExperience";
 import { Gallery } from "@/components/sections/Gallery";
+import { Reviews } from "@/components/sections/Reviews";
+import { Footer } from "@/components/layout/Footer";
 import { SoundToggle } from "@/components/sections/SoundToggle";
 
 const CoffeeScene = dynamic(
@@ -45,6 +47,8 @@ export default function Home() {
         <FeaturedMenu />
         <SignatureExperience />
         <Gallery />
+        <Reviews />
+        <Footer />
       </main>
       <SoundToggle />
     </LenisProvider>

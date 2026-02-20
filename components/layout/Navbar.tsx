@@ -3,6 +3,9 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
+import { usePathname } from "next/navigation";
+import { CalendarCheck, UtensilsCrossed } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useLenis } from "@/lib/lenis-provider";
 
@@ -11,6 +14,7 @@ const LINKS = [
   { href: "#menu", label: "Menu" },
   { href: "#signature", label: "Experience" },
   { href: "#gallery", label: "Gallery" },
+  { href: "#reviews", label: "Testimonials" },
 ];
 
 function scrollToAndClose(href: string, lenis: ReturnType<typeof useLenis>, onClose: () => void) {
@@ -19,6 +23,8 @@ function scrollToAndClose(href: string, lenis: ReturnType<typeof useLenis>, onCl
 }
 
 export function Navbar() {
+  const pathname = usePathname();
+  const isHome = pathname === "/";
   const [scrolled, setScrolled] = useState(false);
   const [activeId, setActiveId] = useState("hero");
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -61,21 +67,30 @@ export function Navbar() {
       <motion.header
         className={cn(
           "fixed left-0 right-0 top-0 z-[100] flex items-center justify-between px-4 py-3 transition-all duration-500 sm:px-6 md:px-12 md:py-4",
-          scrolled ? "bg-[var(--espresso)]/80 backdrop-blur-xl" : "bg-transparent"
+          scrolled || !isHome ? "bg-[var(--espresso)]/80 backdrop-blur-xl" : "bg-transparent"
         )}
         initial={false}
         animate={{
-          boxShadow: scrolled ? "0 4px 30px rgba(0,0,0,0.15)" : "0 0 0 transparent",
+          boxShadow: scrolled || !isHome ? "0 4px 30px rgba(0,0,0,0.15)" : "0 0 0 transparent",
         }}
       >
         <Link
-          href="#hero"
-          className="font-editorial text-lg font-semibold tracking-tight text-[var(--cream)] sm:text-xl"
+          href="/"
+          className="flex items-center gap-2 font-editorial text-lg font-semibold tracking-tight text-[var(--cream)] sm:text-xl"
           onClick={(e) => {
-            e.preventDefault();
-            scrollToAndClose("#hero", lenis, () => setMobileOpen(false));
+            if (isHome) {
+              e.preventDefault();
+              scrollToAndClose("#hero", lenis, () => setMobileOpen(false));
+            }
           }}
         >
+          <Image
+            src="/cafe-logo.png"
+            alt=""
+            width={32}
+            height={32}
+            className="size-7 shrink-0 sm:size-8"
+          />
           Kashif Café
         </Link>
 
@@ -84,12 +99,14 @@ export function Navbar() {
           {LINKS.map(({ href, label }) => (
             <Link
               key={href}
-              href={href}
+              href={isHome ? href : `/${href}`}
               data-cursor-hover
               className="relative py-2 text-sm font-medium uppercase tracking-widest text-[var(--cream)]/90 transition-colors hover:text-[var(--cream)]"
               onClick={(e) => {
-                e.preventDefault();
-                lenis?.scrollTo(href, { offset: -80 });
+                if (isHome) {
+                  e.preventDefault();
+                  lenis?.scrollTo(href, { offset: -80 });
+                }
               }}
             >
               {label}
@@ -105,10 +122,26 @@ export function Navbar() {
               </AnimatePresence>
             </Link>
           ))}
+          <Link
+            href="/reserve"
+            data-cursor-hover
+            className="flex items-center gap-2 rounded-full border-2 border-[var(--amber)] bg-[var(--amber)] px-4 py-2 text-sm font-medium uppercase tracking-widest text-[var(--espresso)] transition-colors hover:bg-[var(--amber-glow)] hover:border-[var(--amber-glow)]"
+          >
+            <UtensilsCrossed className="size-4 shrink-0" />
+            Reserve
+          </Link>
         </nav>
 
-        {/* Mobile menu button */}
-        <button
+        {/* Mobile: Reserve button + hamburger */}
+        <div className="flex items-center gap-2 md:hidden">
+          <Link
+            href="/reserve"
+            className="flex items-center gap-1.5 rounded-full border-2 border-[var(--amber)] bg-[var(--amber)] px-3 py-2 text-xs font-medium uppercase tracking-widest text-[var(--espresso)] transition-colors hover:bg-[var(--amber-glow)] hover:border-[var(--amber-glow)]"
+          >
+            <UtensilsCrossed className="size-3.5 shrink-0" />
+            Reserve
+          </Link>
+          <button
           type="button"
           aria-label={mobileOpen ? "Close menu" : "Open menu"}
           aria-expanded={mobileOpen}
@@ -125,6 +158,7 @@ export function Navbar() {
             </svg>
           )}
         </button>
+        </div>
       </motion.header>
 
       {/* Mobile menu overlay */}
@@ -151,14 +185,18 @@ export function Navbar() {
               {LINKS.map(({ href, label }) => (
                 <Link
                   key={href}
-                  href={href}
+                  href={isHome ? href : `/${href}`}
                   className={cn(
                     "relative rounded-lg py-3 pl-4 pr-4 text-left font-medium uppercase tracking-widest text-[var(--cream)] transition-colors hover:bg-white/10 active:bg-white/15",
-                    activeId === href.slice(1) && "bg-white/5 text-[var(--cream)]"
+                    isHome && activeId === href.slice(1) && "bg-white/5 text-[var(--cream)]"
                   )}
                   onClick={(e) => {
-                    e.preventDefault();
-                    scrollToAndClose(href, lenis, () => setMobileOpen(false));
+                    if (isHome) {
+                      e.preventDefault();
+                      scrollToAndClose(href, lenis, () => setMobileOpen(false));
+                    } else {
+                      setMobileOpen(false);
+                    }
                   }}
                 >
                   {activeId === href.slice(1) && (
@@ -167,6 +205,14 @@ export function Navbar() {
                   {label}
                 </Link>
               ))}
+              <Link
+                href="/reserve"
+                className="mt-4 flex items-center justify-center gap-2 rounded-full border-2 border-[var(--amber)] bg-[var(--amber)] px-4 py-3 font-medium uppercase tracking-widest text-[var(--espresso)] transition-colors hover:bg-[var(--amber-glow)] hover:border-[var(--amber-glow)]"
+                onClick={() => setMobileOpen(false)}
+              >
+                <CalendarCheck className="size-4 shrink-0" />
+                Reserve
+              </Link>
             </motion.nav>
           </>
         )}
