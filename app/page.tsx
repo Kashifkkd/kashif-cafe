@@ -46,7 +46,7 @@ export default function Home() {
         <SignatureExperience />
         <Gallery />
       </main>
-      {/* <SoundToggle /> */}
+      <SoundToggle />
     </LenisProvider>
   );
 }
