@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Kashif Café — Where flavour meets moment",
+  title: "Heritage Café — Where flavour meets moment",
   description:
     "A space for coffee, conversation, and the in-between. Pizza, burgers, fries, sandwiches, coffee, mojitos.",
 };

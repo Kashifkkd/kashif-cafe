@@ -91,7 +91,7 @@ export function Navbar() {
             height={32}
             className="size-7 shrink-0 sm:size-8"
           />
-          Kashif Café
+          Heritage Café
         </Link>
 
         {/* Desktop nav */}

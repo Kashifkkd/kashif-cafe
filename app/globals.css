@@ -49,7 +49,7 @@
 }
 
 :root {
-  /* Kashif Cafe — Brand Design System */
+  /* Cafe — Brand Design System */
   --font-editorial: var(--font-montserrat);
   --espresso: oklch(0.12 0.02 40);
   --espresso-soft: oklch(0.18 0.02 40);

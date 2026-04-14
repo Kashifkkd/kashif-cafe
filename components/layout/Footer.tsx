@@ -22,7 +22,7 @@ export function Footer() {
                 height={40}
                 className="size-8 shrink-0 sm:size-10"
               />
-              Kashif Café
+              Heritage Café
             </h2>
             <p className="mt-4 font-sans text-sm text-[var(--cream)]/80">
               Where flavour meets moment.
@@ -72,7 +72,7 @@ export function Footer() {
 
           {/* Map */}
           <div className="overflow-hidden rounded-2xl border border-[var(--cream)]/10 bg-[var(--espresso-soft)]">
-            <p className="sr-only">Map: Get directions to Kashif Café</p>
+            <p className="sr-only">Map: Get directions to Heritage Café</p>
             <iframe
               src={MAP_EMBED_URL}
               width="100%"
@@ -81,11 +81,11 @@ export function Footer() {
               allowFullScreen
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
-              title="Kashif Café location"
+              title="Heritage Café location"
               className="block min-h-[280px] w-full"
             />
             <a
-              href="https://www.google.com/maps/search/?api=1&query=Kashif+Cafe"
+              href="https://www.google.com/maps/search/?api=1&query=Heritage+Cafe"
               target="_blank"
               rel="noopener noreferrer"
               className="mt-3 block px-4 pb-4 text-center font-sans text-xs text-[var(--cream)]/70 underline hover:text-[var(--amber)]"
@@ -96,7 +96,7 @@ export function Footer() {
         </div>
 
         <div className="mt-16 border-t border-[var(--cream)]/10 pt-8 text-center font-sans text-xs text-[var(--cream)]/60">
-          © {new Date().getFullYear()} Kashif Café. All rights reserved.
+          © {new Date().getFullYear()} Heritage Café. All rights reserved.
         </div>
       </div>
     </footer>
