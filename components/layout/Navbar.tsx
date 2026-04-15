@@ -84,13 +84,22 @@ export function Navbar() {
             }
           }}
         >
-          <Image
-            src="/cafe-logo.png"
-            alt=""
-            width={32}
-            height={32}
-            className="size-7 shrink-0 sm:size-8"
-          />
+          <span
+            className={cn(
+              "inline-flex shrink-0 items-center justify-center rounded-full p-1 transition-all duration-300",
+              scrolled || !isHome
+                ? "bg-[var(--cream)]/95 ring-1 ring-[var(--amber)]/45 shadow-[0_6px_20px_rgba(0,0,0,0.28)]"
+                : "bg-[var(--cream)]/85 ring-1 ring-black/10 shadow-[0_4px_14px_rgba(0,0,0,0.18)]"
+            )}
+          >
+            <Image
+              src="/cafe-logo.png"
+              alt=""
+              width={32}
+              height={32}
+              className="size-7 rounded-full object-cover sm:size-8"
+            />
+          </span>
           Heritage Café
         </Link>
 
@@ -101,7 +110,12 @@ export function Navbar() {
               key={href}
               href={isHome ? href : `/${href}`}
               data-cursor-hover
-              className="relative py-2 text-sm font-medium uppercase tracking-widest text-[var(--cream)]/90 transition-colors hover:text-[var(--cream)]"
+              className={cn(
+                "relative py-2 text-sm font-medium uppercase tracking-widest transition-colors",
+                !isHome && href === "#menu"
+                  ? "text-[var(--amber)]"
+                  : "text-[var(--cream)]/90 hover:text-[var(--cream)]"
+              )}
               onClick={(e) => {
                 if (isHome) {
                   e.preventDefault();
@@ -111,7 +125,7 @@ export function Navbar() {
             >
               {label}
               <AnimatePresence>
-                {activeId === href.slice(1) && (
+                {(isHome ? activeId === href.slice(1) : href === "#menu") && (
                   <motion.span
                     layoutId="nav-indicator"
                     className="absolute bottom-0 left-0 right-0 h-px bg-[var(--amber)]"
@@ -188,7 +202,9 @@ export function Navbar() {
                   href={isHome ? href : `/${href}`}
                   className={cn(
                     "relative rounded-lg py-3 pl-4 pr-4 text-left font-medium uppercase tracking-widest text-[var(--cream)] transition-colors hover:bg-white/10 active:bg-white/15",
-                    isHome && activeId === href.slice(1) && "bg-white/5 text-[var(--cream)]"
+                    (isHome && activeId === href.slice(1)) || (!isHome && href === "#menu")
+                      ? "bg-white/5 text-[var(--amber)]"
+                      : "text-[var(--cream)]"
                   )}
                   onClick={(e) => {
                     if (isHome) {
@@ -199,7 +215,7 @@ export function Navbar() {
                     }
                   }}
                 >
-                  {activeId === href.slice(1) && (
+                  {(isHome ? activeId === href.slice(1) : href === "#menu") && (
                     <span className="absolute left-0 top-1/2 h-6 w-1 -translate-y-1/2 rounded-full bg-[var(--amber)]" />
                   )}
                   {label}

@@ -3,6 +3,7 @@
 import { useRef, useEffect, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 
 const CATEGORIES = [
   {
@@ -81,15 +82,31 @@ export function FeaturedMenu() {
     >
       <div className="sticky top-0 flex h-screen w-full flex-col overflow-hidden">
         <div className="shrink-0 px-4 pt-20 pb-4 sm:px-6 md:px-10 md:pt-24 md:pb-6 lg:px-12">
-          <motion.h2
-            className="font-editorial text-3xl font-semibold text-[var(--espresso)] sm:text-4xl md:text-5xl"
-            initial={{ opacity: 0, x: -24 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7 }}
-          >
-            Featured menu
-          </motion.h2>
+          <div className="flex items-end justify-between gap-3">
+            <motion.h2
+              className="font-editorial text-3xl font-semibold text-[var(--espresso)] sm:text-4xl md:text-5xl"
+              initial={{ opacity: 0, x: -24 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7 }}
+            >
+              Featured menu
+            </motion.h2>
+            <motion.div
+              className="shrink-0 text-right"
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1, duration: 0.5 }}
+            >
+              <Link
+                href="/menu"
+                className="inline-flex items-center text-xs font-semibold uppercase tracking-widest text-[var(--espresso)]/80 underline-offset-4 transition-colors hover:text-[var(--amber)] hover:underline sm:text-sm"
+              >
+                View all
+              </Link>
+            </motion.div>
+          </div>
           <motion.p
             className="mt-1.5 text-xs uppercase tracking-widest text-[var(--espresso)]/60 sm:mt-2 sm:text-sm"
             initial={{ opacity: 0 }}

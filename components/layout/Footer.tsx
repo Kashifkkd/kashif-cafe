@@ -15,13 +15,15 @@ export function Footer() {
           {/* Details */}
           <div>
             <h2 className="flex items-center gap-2 font-editorial text-2xl font-semibold sm:text-3xl">
-              <Image
-                src="/cafe-logo.png"
-                alt=""
-                width={40}
-                height={40}
-                className="size-8 shrink-0 sm:size-10"
-              />
+              <span className="inline-flex shrink-0 items-center justify-center rounded-full bg-[var(--cream)]/95 p-1 ring-1 ring-[var(--amber)]/45 shadow-[0_6px_20px_rgba(0,0,0,0.28)]">
+                <Image
+                  src="/cafe-logo.png"
+                  alt=""
+                  width={40}
+                  height={40}
+                  className="size-8 rounded-full object-cover sm:size-10"
+                />
+              </span>
               Heritage Café
             </h2>
             <p className="mt-4 font-sans text-sm text-[var(--cream)]/80">
